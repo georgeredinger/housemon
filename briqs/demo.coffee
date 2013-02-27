@@ -10,10 +10,10 @@ state = require '../server/state'
 ss = require 'socketstream'
 
 exports.factory = class
-  
+
   constructor: ->
     state.on 'rf12.packet', packetListener
-        
+
   destroy: ->
     state.off 'rf12.packet', packetListener
 

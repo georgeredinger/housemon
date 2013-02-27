@@ -19,7 +19,7 @@ ss.api.add 'store', state.store
 ss.api.add 'saveNow', state.saveNow
 state.on 'publish', (hash, value) ->
   ss.api.publish.all 'ss-store', hash, value
-  
+
 # Define a single-page client called 'main'
 ss.client.define 'main',
   view: 'index.jade'
