@@ -27,11 +27,14 @@ packetListener = (packet, ainfo) ->
   if packet.id is 1 and packet.group is 212
     count = packet.buffer[2]*256+packet.buffer[1]
     temperature = ((packet.buffer[4]*256+packet.buffer[3])/10.0)*1.8+32.0
-    battery = packet.buffer[5]*256+packet.buffer[6]
-    ldr = packet.buffer[7]*256+packet.buffer[8]
+    battery = packet.buffer[6]*256+packet.buffer[5]
+    ldr = packet.buffer[8]*256+packet.buffer[7]
     console.log("count ="+count)
     console.log("temperature ="+temperature)
     console.log("battery ="+battery)
     console.log("ldr ="+ldr)
 
     ss.api.publish.all 'ss-geodemo', count,temperature,ldr,battery
+
+
+#/^OK/ { printf("%d %2.1f %d %d\n", $4*256+$3,(($6*256+$5)/10.0)*1.8+32.0,($8*256+$7),$10*256+$9);}

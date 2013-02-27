@@ -3,7 +3,7 @@ exports.info =
   description: 'Serial interface for a JeeNode running the RF12demo sketch'
   inputs: [
     name: 'Serial port'
-    default: 'usb-AH01A0GD' # TODO: list choices with serialport.list
+    default: 'ttyUSB0' # TODO: list choices with serialport.list
   ]
   # events: ['rf12.packet', 'data']
   # dependencies:
@@ -13,17 +13,17 @@ serialport = require 'serialport'
 state = require '../server/state'
 
 class RF12demo extends serialport.SerialPort
-  
+
   constructor: (device) ->
     info = {}
     ainfo = {}
-    
+
     # support some platform-specific shorthands
     switch process.platform
       when 'darwin' then port = device.replace /^usb-/, '/dev/tty.usbserial-'
       when 'linux' then port = device.replace /^tty/, '/dev/tty'
       else port = device
-    
+
     # FIXME open with delay to work around an FTDI serial kernel bug (!)
     setTimeout =>
       # construct the serial port object
@@ -60,7 +60,7 @@ class RF12demo extends serialport.SerialPort
         else
           # unrecognized input, usually a "?" line
           state.emit 'rf12.other', data
-          
+
   destroy: -> @close()
-        
+
 exports.factory = RF12demo

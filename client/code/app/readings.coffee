@@ -12,7 +12,6 @@ module.exports = (ng) ->
       maxProduced = 5000  # Watt
       maxConsumed = 5000  # Watt
       scaleMinimum = 0    # Watt
-      
       # 0 gives sqrt scaling, 30 is a nice value for log scaling
       mapFun = if scaleMinimum >= 1 then Math.log else Math.sqrt
       
@@ -79,6 +78,7 @@ module.exports = (ng) ->
         ctx.stroke()
 
       $scope.$on 'set.readings', (event, reading) ->
+        console.log "read read read"
         if reading.key is 'RF12:868:5:9.homePower'
           produced = reading.p2 / 10
           # ignore small residual readings when the inverter is off
